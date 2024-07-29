@@ -133,8 +133,9 @@ export default function Survey() {
     setSending(true);
     const lead = getCookie('lead');
     const {id, email, phone, company, fullName} = JSON.parse(lead);
-    const fbParams = fbEvents('Lead', id);
-    const payload = {...data, id, fullName, email, phone, fbParams};
+    const _fbc = getCookie('_fbc');
+    const _fbp = getCookie('_fbp');
+    const payload = {...data, id, fullName, email, phone, _fbc, _fbp};
 
     const crmParams = {
       obt_nombre: fullName,
