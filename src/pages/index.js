@@ -1,6 +1,6 @@
 import Blockbuster from '../components/blockbuster';
 import OptInForm from '../components/form/opt-in-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import scrollDepth from '../utils/scrollDepth';
 import Faqs from '../components/faqs';
 import Link from 'next/link';
@@ -11,12 +11,16 @@ import i03 from '../../public/assets/imagenes/03.jpg'
 import i05 from '../../public/assets/imagenes/05.jpg'
 
 export default function Home() {
+  const [lastClick, setLastClick] = useState('');
+
   useEffect(() => {
     scrollDepth({
       values: [25, 50, 75, 100],
       callback: (value) => fbq('trackCustom', `Scroll Depth: ${value}`),
     });
   });
+
+  console.log(lastClick);
 
   return (
     <>
@@ -30,7 +34,12 @@ export default function Home() {
           <div className="flex flex-col justify-center items-center mt-12">
             <p className="ft-2 font-medium text-center mb-12 text-white">Agenda una sesión gratuita <br/>para diseñar el
               software de gestión de tu empresa</p>
-            <Link href="#contact"><a className="button mb-4 mx-auto">Agenda una sesión estratégica</a></Link>
+            <Link href="#contact">
+              <a
+                onClick={() => setLastClick('hero')}
+                className="button mb-4 mx-auto"
+              >Agenda una sesión estratégica</a>
+            </Link>
           </div>
         </div>
         <div className="absolute flex flex-col justify-center items-center text-white bottom-8 mt-8 md:mt-20 z-10">
@@ -61,7 +70,12 @@ export default function Home() {
           importa: que la empresa crezca.
         </p>
         <div className="flex flex-col justify-center items-center">
-          <Link href="#contact"><a className="button mb-4 mx-auto">Contáctanos, da clic</a></Link>
+          <Link href="#contact">
+            <a
+              onClick={() => setLastClick('story')}
+              className="button mb-4 mx-auto"
+            >Contáctanos, da clic</a>
+          </Link>
           <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
         </div>
       </section>
@@ -99,7 +113,12 @@ export default function Home() {
           que no se tarden toda una semana generando un reporte que puede estar listo en 2 clics.
         </p>
         <div>
-          <Link href="#contact"><a className="button mb-4 mx-auto">3 buenas razones ¿no? Da clic</a></Link>
+          <Link href="#contact">
+            <a
+              onClick={() => setLastClick('benefits')}
+              className="button mb-4 mx-auto"
+            >3 buenas razones ¿no? Da clic</a>
+          </Link>
           <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
         </div>
       </section>
@@ -135,7 +154,12 @@ export default function Home() {
           funcione como esperas.
         </p>
         <div>
-          <Link href="#contact"><a className="button mb-4 mx-auto">3 buenas razones ¿no? Da clic</a></Link>
+          <Link href="#contact">
+            <a
+              onClick={() => setLastClick('deliverables')}
+              className="button mb-4 mx-auto"
+            >¿Qué más necesitas saber? Da clic</a>
+          </Link>
           <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
         </div>
       </section>
@@ -165,7 +189,12 @@ export default function Home() {
           extras.
         </p>
         <div>
-          <Link href="#contact"><a className="button mb-4 mx-auto">3 buenas razones ¿no? Da clic</a></Link>
+          <Link href="#contact">
+            <a
+              onClick={() => setLastClick('target')}
+              className="button mb-4 mx-auto"
+            >Líbrate del excel. Da clic</a>
+          </Link>
           <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
         </div>
       </section>
@@ -192,7 +221,9 @@ export default function Home() {
           <p className="text-white">
             Regálanos unos datos y agenda una cita para analizar tu proyecto.
           </p>
-          <OptInForm/>
+          <OptInForm
+            lastClick={lastClick}
+          />
         </div>
       </section>
     </>
