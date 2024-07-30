@@ -175,7 +175,7 @@ export default function Survey() {
         console.log('url params', new URLSearchParams(crmParams).toString());
         if (info.surveyRedirect !== '') {
           const forwardLink = document.createElement('a');
-          forwardLink.href = info.surveyRedirect;
+          forwardLink.href = info.surveyRedirect + `?name=${fullName}&email=${email}&phone${phone}`;
           forwardLink.target = '_blank';
           forwardLink.click();
         }
