@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <>
       <section
-        className="relative h-[80vh] w-full flex flex-col justify-center items-center bg-[url('/assets/imagenes/06.png')] bg-cover">
+        className="relative min-h-[64rem] w-full flex flex-col justify-center items-center bg-[url('/assets/imagenes/06.png')] bg-cover">
         <div className="w-full lg:w-1/2 text-center text-white z-10 p-8">
           <h1
             className="relative font-semibold ft-10 text-white [text-shadow:_2px_2px_0_rgb(0_0_0_/_60%)]">
