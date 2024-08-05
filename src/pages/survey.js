@@ -159,10 +159,10 @@ export default function Survey() {
         'Content-Type': 'application/json',
       },
     }).then((response) => response)
-      .then(() => fbEvent(
-        'Lead',
-        {email, phone, externalID: id},
-      ))
+      // .then(() => fbEvent(
+      //   'Lead',
+      //   {email, phone, externalID: id},
+      // ))
       // POST to Customer CRM
       .then(() => fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams)}`, {
           method: 'GET', // due to Customer CRM Config we're sending as GET method
