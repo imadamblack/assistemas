@@ -60,19 +60,19 @@ const formSteps = [
     placeholder: 'Pon aquí todo con lujo de detalle',
     cols: 4,
   },
-  // {
-  //   name: 'budget',
-  //   title: '¿En qué rango de presupuesto estarías cómodo para solucionar tus broncas operativas?',
-  //   description: 'Es solo un estimado, haremos algo a medida',
-  //   type: 'radio',
-  //   inputOptions: {required: 'Selecciona una opción'},
-  //   options: [
-  //     {value: '70000-100000', label: '$70,000 a $100,000 mxn'},
-  //     {value: '100000-150000', label: '$100,000 a $150,000 mxn'},
-  //     {value: '150000+', label: 'Más de $150,000 mxn'},
-  //   ],
-  //   cols: 1,
-  // },
+  {
+    name: 'budget',
+    title: '¿Qué rango de presupuesto te deja tranquilo para solucionar tus broncas operativas?',
+    description: 'Es solo un estimado, haremos algo a medida',
+    type: 'radio',
+    inputOptions: {required: 'Selecciona una opción'},
+    options: [
+      {value: '70000-100000', label: '$70,000 a $100,000 mxn'},
+      {value: '100000-150000', label: '$100,000 a $150,000 mxn'},
+      {value: '150000+', label: 'Más de $150,000 mxn'},
+    ],
+    cols: 1,
+  },
   {
     name: 'urgency',
     title: '¿Qué tan urgente es que implementes un software?',
