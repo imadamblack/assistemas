@@ -43,22 +43,22 @@ export default function OptInForm({lastClick = ''}) {
       // Send FB Event
       .then(({id}) => {
         fbEvent(
-          'Lead',
+          'CompleteRegistration',
           {email: data.email, phone: data.phone, externalID: id},
         );
         setCookie('lead', {...data, id});
         return id;
       })
       // POST to Customer CRM
-      .then((id) => {
-          fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams)}`, {
-            method: 'GET', // due to Customer CRM Config we're sending as GET method
-          }).then((result) => result.text())
-            .then((r) => console.log(r))
-            .catch((e) => console.error('FETCH', e));
-          return id;
-        }
-      )
+      // .then((id) => {
+      //     fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams)}`, {
+      //       method: 'GET', // due to Customer CRM Config we're sending as GET method
+      //     }).then((result) => result.text())
+      //       .then((r) => console.log(r))
+      //       .catch((e) => console.error('FETCH', e));
+      //     return id;
+      //   }
+      // )
       // Redirect to Survey Page
       .then((id) => router.push(`/survey?id=${id}`));
   };

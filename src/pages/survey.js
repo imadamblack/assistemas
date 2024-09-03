@@ -63,13 +63,13 @@ const formSteps = [
   {
     name: 'budget',
     title: '¿Qué rango de presupuesto te deja tranquilo para solucionar tus broncas operativas?',
-    description: 'Es solo un estimado, haremos algo a medida',
+    description: 'Es solo un estimado, haremos una propuesta a medida',
     type: 'radio',
     inputOptions: {required: 'Selecciona una opción'},
     options: [
-      {value: '70000-100000', label: '$70,000 a $100,000 mxn'},
-      {value: '100000-150000', label: '$100,000 a $150,000 mxn'},
-      {value: '150000+', label: 'Más de $150,000 mxn'},
+      {value: '150000-180000', label: '$150,000 a $180,000 mxn'},
+      {value: '180000-250000', label: '$180,000 a $250,000 mxn'},
+      {value: '250000+', label: 'Más de $250,000 mxn'},
     ],
     cols: 1,
   },
@@ -159,10 +159,10 @@ export default function Survey() {
         'Content-Type': 'application/json',
       },
     }).then((response) => response)
-      // .then(() => fbEvent(
-      //   'Lead',
-      //   {email, phone, externalID: id},
-      // ))
+      .then(() => fbEvent(
+        'Lead',
+        {email, phone, externalID: id},
+      ))
       // POST to Customer CRM
       .then(() => fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams)}`, {
           method: 'GET', // due to Customer CRM Config we're sending as GET method
