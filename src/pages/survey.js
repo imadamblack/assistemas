@@ -19,7 +19,7 @@ const formSteps = [
       {value: 'erp', label: 'ERP'},
       {value: 'cobranza', label: 'Cobranza'},
       {value: 'tpv', label: 'Terminal Punto de Venta'},
-      {value: 'other', label: 'Otro'},
+      {value: 'otherTools', label: 'Otro'},
     ],
     cols: 2,
   },
