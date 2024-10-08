@@ -29,5 +29,5 @@ export const info = {
   optInWebhook: 'https://hook.us1.make.com/7ag323hp4l99ere5xljwaguty07ucy72',
   crmWebhook: "https://assistemas.mx/lead/obt_lead.php",
   surveyWebhook: 'https://hook.us1.make.com/1zvc4qo9r5q613vynfu4poe7evy1m8c6',
-  surveyRedirect: 'https://calendly.com/javiersierrad/30min',
+  surveyRedirect: 'https://scheduler.zoom.us/javier-s/javisierra',
 };
