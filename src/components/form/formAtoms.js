@@ -7,9 +7,9 @@ export const Select = ({name, inputOptions, options, placeholder, className = ''
     <div className="select">
       <select
         {...register(name, inputOptions)}
-        className={className}
+        className={className + 'rounded-lg'}
       >
-        <option value="" disabled selected>{placeholder}</option>
+        {placeholder !== false && <option value="" disabled selected>{placeholder}</option>}
         {/* eslint-disable-next-line react/jsx-key */}
         {options.map((opt) => <option value={opt.value}>{opt.name}</option>)}
       </select>

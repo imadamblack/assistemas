@@ -181,7 +181,7 @@ export default function Home() {
           Ok tal vez estoy exagerando... ¿o no?
           <br/><br/>
           Desde ahorita es importante saber que esta es una inversión y
-          <b>un software</b> en AS Sistemas va <b>desde los $70,000 mxn</b>, según las
+          <b>un software</b> en AS Sistemas va <b>desde los $7,500 USD</b>, según las
           necesidades de tu empresa.
           <br/><br/>
           Además, quédate tranquilo de que no te
