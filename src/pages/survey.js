@@ -67,9 +67,10 @@ const formSteps = [
     type: 'radio',
     inputOptions: {required: 'Selecciona una opción'},
     options: [
-      {value: '150000-180000', label: '$7,500 a $9,000 USD'},
-      {value: '180000-250000', label: '$9,000 a $12,000 USD'},
-      {value: '250000+', label: 'Más de $12,000 USD'},
+      {value: '85000-100000', label: '$85,000 a $100,000 MXN'},
+      {value: '100000-150000', label: '$100,000 a $150,000 MXN'},
+      {value: '150000-200000', label: '$150,000 a $200,000 MXN'},
+      {value: '200000+', label: 'Más de $200,000 MXN'},
     ],
     cols: 1,
   },
