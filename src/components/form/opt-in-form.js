@@ -20,7 +20,7 @@ export default function OptInForm({lastClick = ''}) {
 
   const onSubmit = (data) => {
     setSending(true);
-    data.phone = data.country === "MX" ? "52" + cleanPhone(data.phone) : "57" + cleanPhone(data.phone);
+    data.phone = data.country === "MX" ? "52" + cleanPhone(data.phone) : data.country === "CO" ? "57" + cleanPhone(data.phone) : "1" + cleanPhone(data.phone);
     data.origin = 'Notoriovs Landing';
     data.lastClick = lastClick;
 
@@ -96,6 +96,7 @@ export default function OptInForm({lastClick = ''}) {
             inputOptions={{required: true}}
             options={[
               {value: 'MX', name: '🇲🇽 MX'},
+              {value: 'US', name: '🇺🇸 US'},
               {value: 'CO', name: '🇨🇴 CO'},
             ]}
             placeholder={false}

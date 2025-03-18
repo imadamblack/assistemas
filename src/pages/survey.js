@@ -7,7 +7,7 @@ import { setCookie, getCookie } from 'cookies-next';
 import { info } from '../../info';
 import fbEvent from '../services/fbEvents';
 
-const formSteps = [
+const formSteps = (country) => ([
   {
     name: 'tools',
     title: `Ok, prometo hacer esto lo más rápido y sencillo posible, <br/>son solo 6 preguntas.`,
@@ -66,7 +66,12 @@ const formSteps = [
     description: 'Es solo un estimado, haremos una propuesta a medida',
     type: 'radio',
     inputOptions: {required: 'Selecciona una opción'},
-    options: [
+    options: country === 'US' ? [
+      {value: '150000-200000', label: '$7,500 a $10,000 USD'},
+      {value: '200000-300000', label: '$10,000 a $15,000 USD'},
+      {value: '300000-400000', label: '$15,000 a $20,000 USD'},
+      {value: '400000+', label: 'Más de $20,000 USD'},
+    ] : [
       {value: '85000-100000', label: '$85,000 a $100,000 MXN'},
       {value: '100000-150000', label: '$100,000 a $150,000 MXN'},
       {value: '150000-200000', label: '$150,000 a $200,000 MXN'},
@@ -98,9 +103,10 @@ const formSteps = [
     ],
     cols: 3,
   },
-];
+]);
 
-export default function Survey() {
+export default function Survey({lead}) {
+  console.log(lead);
   const [formStep, setFormStep] = useState(0);
   const [inputError, setInputError] = useState(null);
   const [sending, setSending] = useState(false);
@@ -116,18 +122,18 @@ export default function Survey() {
   const router = useRouter();
 
   useEffect(() => {
-    formSteps.map((fs) => setError(fs.name, {}));
+    formSteps(lead.country).map((fs) => setError(fs.name, {}));
   }, [setError]);
 
   const handleNext = () => {
-    const formStepName = formSteps[formStep].name;
+    const formStepName = formSteps(lead.country)[formStep].name;
     if (errors[formStepName]) {
       setInputError(formStep);
       return;
     }
     setInputError(null);
     window.scrollTo(0, 0);
-    return formStep < formSteps.length - 1 && setFormStep(formStep + 1);
+    return formStep < formSteps(lead.country).length - 1 && setFormStep(formStep + 1);
   };
 
   const onSubmit = (data) => {
@@ -190,12 +196,12 @@ export default function Survey() {
       <div className="container !p-0 flex flex-col flex-grow items-center pointer-events-auto touch-auto">
         <div className="survey-card">
           <div className="w-full absolute left-0 top-0 bg-gray-100">
-            <div className={`h-4 bg-brand-1`} style={{width: `${((formStep + 1) / formSteps.length) * 100}%`}}/>
+            <div className={`h-4 bg-brand-1`} style={{width: `${((formStep + 1) / formSteps(lead.country).length) * 100}%`}}/>
           </div>
-          <p className="-ft-1">{formStep + 1}/{formSteps.length}</p>
+          <p className="-ft-1">{formStep + 1}/{formSteps(lead.country).length}</p>
           <FormProvider {...methods}>
             <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-              {formSteps.map((fs, idx) => {
+              {formSteps(lead.country).map((fs, idx) => {
                 if (fs.type === 'text') {
                   const {name, title, description, placeholder, inputOptions} = fs;
                   return (
@@ -281,7 +287,7 @@ export default function Survey() {
                   className="mt-auto"
                 >
                   {sending && <span className="animate-spin mr-4">+</span>}
-                  {formStep === formSteps.length - 1 ? 'Agendar cita' : sending ? 'Abriendo Calendario' : 'Siguiente'}
+                  {formStep === formSteps(lead.country).length - 1 ? 'Agendar cita' : sending ? 'Abriendo Calendario' : 'Siguiente'}
                 </button>
               </div>
             </form>
@@ -310,5 +316,5 @@ export async function getServerSideProps(ctx) {
     }
   }
 
-  return {props: {}}
+  return {props: {lead: JSON.parse(lead)}}
 }
