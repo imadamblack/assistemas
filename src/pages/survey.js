@@ -47,6 +47,7 @@ const formSteps = (country) => ([
     title: '¿Cuántos colaboradores trabajan en tu empresa?',
     description: 'Selecciona una opción por favor',
     type: 'radio',
+    inputOptions: {required: 'Selecciona una opción'},
     options: [
       {value: '0-10', label: 'Menos de 10'},
       {value: '10-50', label: '10 a 50'},
