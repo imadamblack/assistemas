@@ -109,16 +109,19 @@ const formSteps = (country) => ([
 ]);
 
 export default function Survey({lead}) {
-  console.log(lead);
   const [formStep, setFormStep] = useState(0);
   const [inputError, setInputError] = useState(null);
   const [sending, setSending] = useState(false);
+  const {id, email, phone, company, fullName} = lead;
+  const _fbc = getCookie('_fbc');
+  const _fbp = getCookie('_fbp');
   const methods = useForm({mode: 'all'});
   const {
     register,
     handleSubmit,
     setError,
     formState: {errors},
+    getValues,
     watch
   } = methods;
 
@@ -128,23 +131,33 @@ export default function Survey({lead}) {
     formSteps(lead.country).map((fs) => setError(fs.name, {}));
   }, [setError]);
 
-  const handleNext = () => {
-    const formStepName = formSteps(lead.country)[formStep].name;
-    if (errors[formStepName]) {
-      setInputError(formStep);
-      return;
+  const handlePartialSubmit = async () => {
+    try {
+      const dataSoFar = getValues();
+      const payload = {
+        ...dataSoFar,
+        id,
+        fullName,
+        email,
+        phone,
+        _fbc,
+        _fbp,
+      };
+
+      console.log('Partial submit (full payload)', payload);
+
+      await fetch(info.partialSurveyWebhook, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {'Content-Type': 'application/json'},
+      });
+    } catch (e) {
+      console.error('Partial submit failed', e);
     }
-    setInputError(null);
-    window.scrollTo(0, 0);
-    return formStep < formSteps(lead.country).length - 1 && setFormStep(formStep + 1);
   };
 
   const onSubmit = (data) => {
     setSending(true);
-    const lead = getCookie('lead');
-    const {id, email, phone, company, fullName} = JSON.parse(lead);
-    const _fbc = getCookie('_fbc');
-    const _fbp = getCookie('_fbp');
     const payload = {...data, id, fullName, email, phone, _fbc, _fbp};
 
     const crmParams = {
@@ -192,6 +205,28 @@ export default function Survey({lead}) {
 
         router.push(`/thankyou`);
       });
+  };
+
+  const handleNext = async () => {
+    const currentStep = formSteps(lead.country)[formStep];
+    const formStepName = currentStep.name;
+
+    const valid = await methods.trigger(formStepName);
+
+    if (!valid) {
+      setInputError(formStep);
+      return;
+    }
+
+    setInputError(null);
+    window.scrollTo(0, 0);
+
+    if (formStep < formSteps(lead.country).length - 1) {
+      await handlePartialSubmit();
+      setFormStep(formStep + 1);
+    } else {
+      handleSubmit(onSubmit)();
+    }
   };
 
   return (
@@ -284,7 +319,7 @@ export default function Survey({lead}) {
                 >Atrás
                 </button>
                 <button
-                  type={formStep < formStep.length - 1 ? 'button' : 'submit'}
+                  type="button"
                   disabled={sending}
                   onClick={() => handleNext()}
                   className="mt-auto"
