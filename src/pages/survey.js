@@ -7,7 +7,7 @@ import { setCookie, getCookie } from 'cookies-next';
 import { info } from '../../info';
 import fbEvent from '../services/fbEvents';
 
-const formSteps = (country) => ([
+const formSteps = (country = 'MX') => ([
   {
     name: 'tools',
     title: `Ok, prometo hacer esto lo más rápido y sencillo posible, <br/>son solo 6 preguntas.`,

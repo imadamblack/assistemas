@@ -8,9 +8,9 @@ export const info = {
     recipients: ['info@assistemas.net'],
     subject: 'Nuevo prospecto AS Sistemas',
   },
-  phoneNumber: '+524428636129',
+  phoneNumber: '+524423228107',
   whatsapp: {
-    value: '+524428636129',
+    value: '+524423228107',
     message: 'Nuevo prospecto en desarrollo de software AS Sistemas',
   },
   social: {
@@ -30,5 +30,5 @@ export const info = {
   crmWebhook: "https://assistemas.mx/lead/obt_lead.php",
   surveyWebhook: 'https://hook.us1.make.com/1zvc4qo9r5q613vynfu4poe7evy1m8c6',
   partialSurveyWebhook: 'https://hook.us1.make.com/4ai3ugag59wqiicr77bfr8p7fnblley5',
-  surveyRedirect: 'https://scheduler.zoom.us/manubrena/reunion',
+  surveyRedirect: 'https://scheduler.zoom.us/javier-s/javisierra',
 };
