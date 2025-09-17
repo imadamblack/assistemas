@@ -9,6 +9,10 @@ import i01 from '../../public/assets/imagenes/01.jpg'
 import i02 from '../../public/assets/imagenes/02.jpg'
 import i03 from '../../public/assets/imagenes/03.jpg'
 import i05 from '../../public/assets/imagenes/05.jpg'
+import t01 from '../../public/assets/imagenes/testimonio01.jpg'
+import t02 from '../../public/assets/imagenes/testimonio02.jpg'
+import t03 from '../../public/assets/imagenes/testimonio03.jpg'
+import Image from 'next/image';
 
 export default function Home() {
   const [lastClick, setLastClick] = useState('');
@@ -75,6 +79,72 @@ export default function Home() {
               onClick={() => setLastClick('story')}
               className="button mb-4 mx-auto"
             >Contáctanos, da clic</a>
+          </Link>
+          <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
+        </div>
+      </section>
+
+      <section className="my-16">
+        <div className="container grid lg:grid-cols-3 gap-8">
+          <div className="relative flex flex-col bg-brand-1 rounded-2xl pt-16 p-12">
+            <p className="!text-9xl absolute -top-12 left-4 text-brand-2 material-icons">format_quote</p>
+            <p className="ft-2 text-white flex-grow">
+              Con AS Sistemas, el antes y el después es muy notorio… Estábamos en oscuridad y hoy tenemos visibilidad,
+              trazabilidad, luz.
+            </p>
+            <hr className="my-16"/>
+            <div className="flex justify-between">
+              <div className="relative w-[8rem] h-[8rem] rounded-full overflow-hidden">
+                <Image src={t01} layout="fill" objectFit="cover"/>
+              </div>
+              <div className="my-auto text-white">
+                <p className="ft-1 text-right">Elena Sierra</p>
+                <p className="-ft-1 text-right">CEO
+                  Grupo SierraS</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative flex flex-col bg-brand-1 rounded-2xl pt-16 p-12">
+            <p className="!text-9xl absolute -top-12 left-4 text-brand-2 material-icons">format_quote</p>
+            <p className="ft-2 text-white flex-grow">
+              Es una misión cumplida, estamos tranquilos y seguros de que la información se maneja con las personas debidas. Es un equipo muy profesional.
+            </p>
+            <hr className="my-16"/>
+            <div className="flex justify-between">
+              <div className="relative w-[8rem] h-[8rem] rounded-full overflow-hidden">
+                <Image src={t02} layout="fill" objectFit="cover"/>
+              </div>
+              <div className="my-auto text-white">
+                <p className="ft-1 text-right">Saide Noris</p>
+                <p className="-ft-1 text-right">Representante Legal Tasal</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative flex flex-col bg-brand-1 rounded-2xl pt-16 p-12">
+            <p className="!text-9xl absolute -top-12 left-4 text-brand-2 material-icons">format_quote</p>
+            <p className="ft-2 text-white flex-grow">
+              Ahora tenemos la información concentrada, disponible y bien gestionada… es muy eficiente y sí lo recomendaría.
+            </p>
+            <hr className="my-16"/>
+            <div className="flex justify-between">
+              <div className="relative w-[8rem] h-[8rem] rounded-full overflow-hidden">
+                <Image src={t03} layout="fill" objectFit="cover"/>
+              </div>
+              <div className="my-auto text-white">
+                <p className="ft-1 text-right">Estefani Rincón</p>
+                <p className="-ft-1 text-right">Secretaría de Finanzas y Administración
+                  DDHQRO</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="reading-container">
+          <Link href="#contact">
+            <a
+              onClick={() => setLastClick('benefits')}
+              className="button mb-4 mx-auto"
+            >3 buenas razones ¿no? Da clic</a>
           </Link>
           <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
         </div>
@@ -204,7 +274,7 @@ export default function Home() {
         title="Si tienes dudas, probablemente estén aquí"
         image={i05}
       />
-      <Faqs />
+      <Faqs/>
 
       <section
         className="bg-brand-1 w-full"
