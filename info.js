@@ -8,9 +8,9 @@ export const info = {
     recipients: ['info@assistemas.net'],
     subject: 'Nuevo prospecto AS Sistemas',
   },
-  phoneNumber: '+524423228107',
+  phoneNumber: '+524427104153',
   whatsapp: {
-    value: '+524423228107',
+    value: '+524427104153',
     message: 'Nuevo prospecto en desarrollo de software AS Sistemas',
   },
   social: {
