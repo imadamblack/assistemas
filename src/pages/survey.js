@@ -171,6 +171,8 @@ export default function Survey({lead}) {
       obt_notes: data.notes,
       obt_budget: data.budget,
       obt_urgency: data.urgency,
+      obt_fbc: _fbc,
+      obt_fbp: _fbp,
     };
 
     console.log(crmParams);
@@ -186,9 +188,9 @@ export default function Survey({lead}) {
         'Lead',
         {email, phone, externalID: id},
       ))
-      // POST to Customer CRM
+      // POST to AS Sistemas CRM
       .then(() => fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams)}`, {
-          method: 'GET', // due to Customer CRM Config we're sending as GET method
+          method: 'GET',
         }).then((result) => result.text())
           .then((r) => console.log(r))
           .catch((e) => console.error('FETCH', e)),
