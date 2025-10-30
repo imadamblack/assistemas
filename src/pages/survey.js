@@ -127,6 +127,21 @@ export default function Survey({lead}) {
 
   const router = useRouter();
 
+  const crmParams = (data) => ({
+    obt_nombre: fullName,
+    obt_email: email,
+    obt_telefono: phone,
+    obt_empresa: company,
+    obt_tools: data.tools.join(', '),
+    obt_businessVertical: data.businessVertical,
+    obt_companySize: data.companySize,
+    obt_notes: data.notes,
+    obt_budget: data.budget,
+    obt_urgency: data.urgency,
+    obt_fbc: _fbc,
+    obt_fbp: _fbp,
+  });
+
   useEffect(() => {
     formSteps(lead.country).map((fs) => setError(fs.name, {}));
   }, [setError]);
@@ -134,6 +149,7 @@ export default function Survey({lead}) {
   const handlePartialSubmit = async () => {
     try {
       const dataSoFar = getValues();
+      const crmPayload = crmParams(dataSoFar)
       const payload = {
         ...dataSoFar,
         id,
@@ -144,13 +160,16 @@ export default function Survey({lead}) {
         _fbp,
       };
 
-      console.log('Partial submit (full payload)', payload);
-
       await fetch(info.partialSurveyWebhook, {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {'Content-Type': 'application/json'},
       });
+
+      await fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams(payload))}`, {
+        method: 'GET',
+      })
+
     } catch (e) {
       console.error('Partial submit failed', e);
     }
@@ -159,23 +178,6 @@ export default function Survey({lead}) {
   const onSubmit = (data) => {
     setSending(true);
     const payload = {...data, id, fullName, email, phone, _fbc, _fbp};
-
-    const crmParams = {
-      obt_nombre: fullName,
-      obt_email: email,
-      obt_telefono: phone,
-      obt_empresa: company,
-      obt_tools: data.tools.join(', '),
-      obt_businessVertical: data.businessVertical,
-      obt_companySize: data.companySize,
-      obt_notes: data.notes,
-      obt_budget: data.budget,
-      obt_urgency: data.urgency,
-      obt_fbc: _fbc,
-      obt_fbp: _fbp,
-    };
-
-    console.log(crmParams);
 
     fetch(info.surveyWebhook, {
       method: 'POST',
@@ -189,7 +191,7 @@ export default function Survey({lead}) {
         {email, phone, externalID: id},
       ))
       // POST to AS Sistemas CRM
-      .then(() => fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams)}`, {
+      .then(() => fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams(payload))}`, {
           method: 'GET',
         }).then((result) => result.text())
           .then((r) => console.log(r))
