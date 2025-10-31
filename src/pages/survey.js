@@ -166,7 +166,7 @@ export default function Survey({lead}) {
         headers: {'Content-Type': 'application/json'},
       });
 
-      await fetch(`${info.crmWebhook}?${new URLSearchParams(crmParams(payload))}`, {
+      await fetch(`${info.crmWebhook}?${new URLSearchParams(crmPayload)}`, {
         method: 'GET',
       })
 
