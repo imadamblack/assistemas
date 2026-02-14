@@ -30,10 +30,10 @@ const formSteps = (country = 'MX') => ([
     type: 'radio',
     inputOptions: {required: 'Selecciona una opción'},
     options: [
+      {value: 'logistica', label: 'Logística'},
+      {value: 'industrial', label: 'Industrial / Manufactura'},
       {value: 'agricola', label: 'Agrícola'},
       {value: 'education', label: 'Educación'},
-      {value: 'industrial', label: 'Industrial / Manufactura'},
-      {value: 'logistica', label: 'Logística'},
       {value: 'realEstate', label: 'Real Estate'},
       {value: 'salud', label: 'Salud o Cuidado Personal'},
       {value: 'security', label: 'Seguridad'},
@@ -105,22 +105,23 @@ const formSteps = (country = 'MX') => ([
   },
   {
     name: 'commitment',
-    title: 'Si resultas calificado, ¿prometes asistir puntual a la sesión que estás a punto de agendar?',
+    title: '¿Listo para programar una sesión de diagnóstico con nuestro equipo?',
+    description: '<br/>Si únicamente buscas conocer un precio rápido o una opción genérica, una sesión de diagnóstico probablemente no sea lo que necesitas en este momento.<br/><br/>Como referencia, nuestros proyectos se diseñan a medida, inician a partir de $150,000 MXN y pueden escalar conforme al valor que generan.<br/><br/>Listo para programar tu sesión?',
     type: 'radio',
     inputOptions: {required: 'Selecciona una opción'},
     options: [
       {value: 'no', label: 'No estoy seguro'},
-      {value: 'remind', label: 'Recuérdenme por favor'},
-      {value: 'yes', label: 'Si, atento!'},
+      {value: 'yes', label: 'Si, seguro!'},
     ],
-    cols: 3,
+    cols: 2,
   },
 ]);
 
-export default function Survey({lead}) {
+export default function Survey({lead = {}}) {
   const [formStep, setFormStep] = useState(0);
   const [inputError, setInputError] = useState(null);
   const [sending, setSending] = useState(false);
+  const [partSending, setPartSending] = useState(false);
   const {id, email, phone, company, fullName} = lead;
   const _fbc = getCookie('_fbc');
   const _fbp = getCookie('_fbp');
@@ -159,6 +160,7 @@ export default function Survey({lead}) {
 
   const handlePartialSubmit = async () => {
     try {
+      setPartSending(true);
       const dataSoFar = getValues();
       const crmPayload = crmParams(dataSoFar)
       const payload = {
@@ -181,6 +183,8 @@ export default function Survey({lead}) {
         method: 'GET',
       })
 
+      setPartSending(false);
+
     } catch (e) {
       console.error('Partial submit failed', e);
     }
@@ -189,6 +193,7 @@ export default function Survey({lead}) {
   const onSubmit = (data) => {
     setSending(true);
     const payload = {...data, id, fullName, email, phone, _fbc, _fbp};
+    const elegible = data.commitment === 'yes';
 
     fetch(info.surveyWebhook, {
       method: 'POST',
@@ -210,15 +215,18 @@ export default function Survey({lead}) {
       )
       // Redirect to Thank you page and Scheduler
       .then(() => {
-        console.log('url params', new URLSearchParams(crmParams).toString());
-        if (info.surveyRedirect !== '') {
-          const forwardLink = document.createElement('a');
-          forwardLink.href = info.surveyRedirect + `?name=${fullName}&email=${email}&phone${phone}`;
-          forwardLink.target = '_blank';
-          forwardLink.click();
-        }
+        if (elegible) {
+          if (info.surveyRedirect !== '') {
+            const forwardLink = document.createElement('a');
+            forwardLink.href = info.surveyRedirect + `?name=${fullName}&email=${email}&phone${phone}`;
+            forwardLink.target = '_blank';
+            forwardLink.click();
+          }
 
-        router.push(`/thankyou`);
+          router.push(`/thankyou`);
+        } else {
+          router.push(`/not-elegible`)
+        }
       });
   };
 
@@ -341,6 +349,7 @@ export default function Survey({lead}) {
                 >
                   {sending && <span className="animate-spin mr-4">+</span>}
                   {formStep === formSteps(lead.country).length - 1 ? 'Agendar cita' : sending ? 'Abriendo Calendario' : 'Siguiente'}
+                  {partSending && <span className="animate-spin ml-4 !my-0">+</span>}
                 </button>
               </div>
             </form>
@@ -352,22 +361,31 @@ export default function Survey({lead}) {
 }
 
 export async function getServerSideProps(ctx) {
-  const {req, res, query: {id}} = ctx;
-  const lead = getCookie('lead', {req, res});
+  const { req, res, query } = ctx;
+  const id = query?.id;
 
-  if (!lead || lead === 'null' || Object.keys(lead).length === 0) {
+  const leadCookie = getCookie('lead', { req, res });
+
+  const parsedLead =
+    leadCookie && leadCookie !== 'null'
+      ? (typeof leadCookie === 'string' ? JSON.parse(leadCookie) : leadCookie)
+      : null;
+
+  const isEmptyLead =
+    !parsedLead || (typeof parsedLead === 'object' && Object.keys(parsedLead).length === 0);
+
+  if (isEmptyLead) {
     if (!id) {
       return {
-        redirect: {
-          permanent: false,
-          destination: '/#contact',
-        },
+        redirect: { permanent: false, destination: '/#contact' },
       };
-    } else {
-      setCookie('lead', {...lead, id}, {req, res});
-      return {props: {}};
     }
+
+    const newLead = { id };
+    setCookie('lead', JSON.stringify(newLead), { req, res });
+
+    return { props: { lead: newLead } };
   }
 
-  return {props: {lead: JSON.parse(lead)}}
+  return { props: { lead: parsedLead } };
 }
