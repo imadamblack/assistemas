@@ -13,8 +13,8 @@ export default function fbEvent(
     eventName,
     eventID,
     user: {
-      ph: userData.phone,
-      em: userData.email,
+      ph: userData.phone ?? '',
+      em: userData.email ?? '',
       externalID: userData.externalID
     },
   })

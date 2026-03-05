@@ -5,17 +5,22 @@ import scrollDepth from '../utils/scrollDepth';
 import Faqs from '../components/faqs';
 import Link from 'next/link';
 
-import i01 from '../../public/assets/imagenes/01.jpg'
-import i02 from '../../public/assets/imagenes/02.jpg'
-import i03 from '../../public/assets/imagenes/03.jpg'
-import i05 from '../../public/assets/imagenes/05.jpg'
-import t01 from '../../public/assets/imagenes/testimonio01.jpg'
-import t02 from '../../public/assets/imagenes/testimonio02.jpg'
-import t03 from '../../public/assets/imagenes/testimonio03.jpg'
+import i01 from '../../public/assets/imagenes/01.jpg';
+import i02 from '../../public/assets/imagenes/02.jpg';
+import i03 from '../../public/assets/imagenes/03.jpg';
+import i05 from '../../public/assets/imagenes/05.jpg';
+import t01 from '../../public/assets/imagenes/testimonio01.jpg';
+import t02 from '../../public/assets/imagenes/testimonio02.jpg';
+import t03 from '../../public/assets/imagenes/testimonio03.jpg';
 import Image from 'next/image';
+import Script from 'next/script';
 
-export default function Home() {
+export default function Home({_fbp, _fbc}) {
   const [lastClick, setLastClick] = useState('');
+
+  console.log(_fbc, _fbp);
+
+  const calendlyMetadata = JSON.stringify({_fbp, _fbc})
 
   useEffect(() => {
     scrollDepth({
@@ -23,8 +28,6 @@ export default function Home() {
       callback: (value) => fbq('trackCustom', `Scroll Depth: ${value}`),
     });
   });
-
-  console.log(lastClick);
 
   return (
     <>
@@ -107,7 +110,8 @@ export default function Home() {
           <div className="relative flex flex-col bg-brand-1 rounded-2xl pt-16 p-12">
             <p className="!text-9xl absolute -top-12 left-4 text-brand-2 material-icons">format_quote</p>
             <p className="ft-2 text-white flex-grow">
-              Es una misión cumplida, estamos tranquilos y seguros de que la información se maneja con las personas debidas. Es un equipo muy profesional.
+              Es una misión cumplida, estamos tranquilos y seguros de que la información se maneja con las personas
+              debidas. Es un equipo muy profesional.
             </p>
             <hr className="my-16"/>
             <div className="flex justify-between">
@@ -123,7 +127,8 @@ export default function Home() {
           <div className="relative flex flex-col bg-brand-1 rounded-2xl pt-16 p-12">
             <p className="!text-9xl absolute -top-12 left-4 text-brand-2 material-icons">format_quote</p>
             <p className="ft-2 text-white flex-grow">
-              Ahora tenemos la información concentrada, disponible y bien gestionada… es muy eficiente y sí lo recomendaría.
+              Ahora tenemos la información concentrada, disponible y bien gestionada… es muy eficiente y sí lo
+              recomendaría.
             </p>
             <hr className="my-16"/>
             <div className="flex justify-between">
@@ -291,11 +296,76 @@ export default function Home() {
           <p className="text-white">
             Regálanos unos datos y agenda una cita para analizar tu proyecto.
           </p>
-          <OptInForm
-            lastClick={lastClick}
-          />
+          {/*<OptInForm*/}
+          {/*  lastClick={lastClick}*/}
+          {/*/>*/}
+
         </div>
       </section>
+      <div className="container">
+        <div
+          className="calendly-inline-widget w-full"
+          data-url={`https://calendly.com/llamada-gratuita/30min?hide_event_type_details=1&hide_gdpr_banner=1&${encodeURI(calendlyMetadata)}`}
+          style={{minWidth: '320px', height: '720px'}}
+        />
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="afterInteractive"
+        />
+      </div>
     </>
   );
+}
+
+
+export async function getServerSideProps(ctx) {
+  const { req, query } = ctx;
+  const cookiesHeader = req.headers.cookie || '';
+
+  const keys = ['utm', '_fbc', '_fbp', 'lead'];
+  const cookies = {};
+
+  for (const key of keys) {
+    const raw = cookiesHeader
+      .split('; ')
+      .find(c => c.startsWith(`${key}=`))
+      ?.split('=')[1];
+
+    if (!raw) continue;
+
+    try {
+      const clean = raw.startsWith('j%3A') ? raw.slice(4) : raw;
+      cookies[key] = JSON.parse(decodeURIComponent(clean));
+    } catch {
+      cookies[key] = decodeURIComponent(raw);
+    }
+  }
+
+  // --- Revisar params UTM del query ---
+  const utmFromQuery = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
+    if (query[param]) utmFromQuery[param] = query[param];
+  });
+
+  // Si hay params en la URL, se usan; si no, cae en cookie
+  const utm =
+    Object.keys(utmFromQuery).length > 0
+      ? utmFromQuery
+      : cookies.utm ?? null;
+
+  const { lead, _fbc, _fbp } = cookies;
+
+  return {
+    props: {
+      lead: {
+        fullName: lead?.fullName ?? '',
+        phone: lead?.phone ?? '',
+        whatsapp: lead?.whatsapp ?? '',
+        sheetRow: lead?.sheetRow ?? '',
+      },
+      utm,
+      _fbp,
+      _fbc
+    },
+  };
 }
