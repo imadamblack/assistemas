@@ -20,7 +20,11 @@ export default function Home({_fbp, _fbc}) {
 
   console.log(_fbc, _fbp);
 
-  const calendlyMetadata = JSON.stringify({_fbp, _fbc})
+  const calendlyMetadata = {utm_content: _fbc ?? '', utm_term: _fbp ?? ''}
+  const params = new URLSearchParams(calendlyMetadata)
+  const calendlyURL = `https://calendly.com/llamada-gratuita/30min?hide_event_type_details=1&hide_gdpr_banner=1&${params.toString()}`
+
+  console.log(calendlyURL);
 
   useEffect(() => {
     scrollDepth({
@@ -305,7 +309,7 @@ export default function Home({_fbp, _fbc}) {
       <div className="container">
         <div
           className="calendly-inline-widget w-full"
-          data-url={`https://calendly.com/llamada-gratuita/30min?hide_event_type_details=1&hide_gdpr_banner=1&${encodeURI(calendlyMetadata)}`}
+          data-url={calendlyURL}
           style={{minWidth: '320px', height: '720px'}}
         />
         <Script
@@ -364,8 +368,8 @@ export async function getServerSideProps(ctx) {
         sheetRow: lead?.sheetRow ?? '',
       },
       utm,
-      _fbp,
-      _fbc
+      _fbp: _fbp ?? '',
+      _fbc,
     },
   };
 }
