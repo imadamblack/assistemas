@@ -2,8 +2,8 @@ import { info } from '../../info';
 import { getCookie } from 'cookies-next';
 
 export default function ThankYou() {
-  const leadCookie = getCookie('lead')
-  const lead = JSON.parse(leadCookie)
+  const leadCookie = getCookie('lead') ?? `{"fullName": "", "email": "", "phone": ""}`;
+  const lead = JSON.parse(leadCookie);
 
   return (
     <section className="relative flex flex-col flex-grow justify-center pt-20 px-0">
