@@ -17,7 +17,7 @@ export default function ThankYou() {
         <div className="flex flex-col items-center justify-center gap-10">
           <a
             className="button hover:scale-105 bg-brand-2 hover:bg-brand-3 ft-4 flex justify-center items-center "
-            href={info.surveyRedirect}
+            href={info.surveyRedirect + `?name=${data.fullName}&email=${data.email}&phone${data.phone}`}
             target="_blank"
           >
             <span className="material-icons">arrow_forward</span>Da click aquí

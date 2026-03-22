@@ -36,21 +36,28 @@ export default function Home({_fbp, _fbc}) {
   return (
     <>
       <section
-        className="relative min-h-[64rem] w-full flex flex-col justify-center items-center bg-[url('/assets/imagenes/06.png')] bg-cover">
-        <div className="w-full lg:w-1/2 text-center text-white z-10 p-8">
+        className="relative min-h-[64rem] w-full flex flex-col justify-center items-center">
+        <div className="w-full lg:w-1/2 text-center z-10 p-8">
+          <div className="ft-0 font-semibold tracking-wide bg-brand-2 px-8 py-2 rounded-full mx-auto mb-8 text-white">
+            Software de gestión para empresas de logística y manufactura
+          </div>
           <h1
-            className="relative font-semibold ft-10 text-white [text-shadow:_2px_2px_0_rgb(0_0_0_/_60%)]">
-            Ahorra hasta el 70% de las tareas manuales y automatiza el crecimiento de tu negocio
+            className="relative font-semibold ft-8 text-brand-1 my-16">
+            Tu operación merece un sistema hecho exactamente para tu tamaño, tu industria y tu presupuesto
           </h1>
+          <p
+            className="relative font-medium ft-4 text-brand-1">
+            Si tu empresa depende de excel, procesos que se repiten en tres formatos distintos y de información que nadie sabe si está actualizada, estás perdiendo dinero.
+          </p>
           <div className="flex flex-col justify-center items-center mt-12">
-            <p className="ft-2 font-medium text-center mb-12 text-white">Agenda una sesión gratuita <br/>para diseñar el
-              software de gestión de tu empresa</p>
             <Link href="#contact">
               <a
                 onClick={() => setLastClick('hero')}
                 className="button mb-4 mx-auto"
-              >Agenda una sesión estratégica</a>
+              >Quiero ordenar mi operación →
+              </a>
             </Link>
+            <p className="-ft-2">Agenda una sesión de diagnóstico · Respuesta en menos de 24 hrs</p>
           </div>
         </div>
         <div className="absolute flex flex-col justify-center items-center text-white bottom-8 mt-8 md:mt-20 z-10">
@@ -59,26 +66,52 @@ export default function Home({_fbp, _fbc}) {
             <div className="ft-3 material-icons mx-auto">expand_more</div>
           </div>
         </div>
-        <div className="w-full h-full absolute bg-black/30 -z-1"/>
       </section>
 
-      <section className="reading-container mb-16">
-        <div className="flex border-b border-brand-1 pb-4 mb-8">
-          <span className="material-icons mr-2 -ft-2">timer</span>
-          <p className="-ft-2" style={{marginBlockEnd: 0}}>Tiempo estimado: 4 min</p>
-        </div>
-        <p className="ft-4 font-bold">Queremos que te conviertas en una empresa</p>
-        <p className="ft-6 font-bold text-brand-3">+ Rentable</p>
-        <p className="ft-6 !mt-0 font-bold text-brand-3 ">+ Productiva</p>
-        <p className="ft-2 mt-12">
-          Ni a ti ni a tu equipo de trabajo les beneficia que solo 1 persona
-          en la empresa tenga la información y todos colapsen cuando esa
-          persona no está para resolver un dato.
-          <br/><br/>
-          Nosotros te ayudamos a <b>centralizar la información</b> para que sea accesible para todos
-          y <b>automatizamos procesos</b> que te quitan mucho tiempo con <b>un software de
-          gestión</b> para que tu equipo se concentre en lo que verdaderamente
-          importa: que la empresa crezca.
+      <section className="reading-container">
+        <h2 className="ft-6">¿Reconoces alguno de estos problemas en tu empresa?</h2>
+        <p className="ft-1">
+          <span className="ft-2 font-bold">El Excel que nadie se atreve a tocar</span><br/>
+          Si un empleado borra una celda por accidente, ese registro desaparece sin dejar rastro. <br/>
+          No hay historial. No hay forma de recuperarlo. <br/>
+          Y lo más preocupante: no sabes cuántas veces ya pasó sin que nadie lo reportara.
+        </p>
+        <p className="ft-1">
+          <span className="ft-2 font-bold">Tomas decisiones con información que puede estar desactualizada</span><br/>
+          ¿Cuánto inventario tienes disponible en este momento?<br/>
+          ¿Cuánto costó realmente el último lote de producción?<br/>
+          ¿Qué órdenes de tu cliente están pendientes de facturar?<br/>
+          Si la respuesta requiere abrir un archivo, llamar a alguien o esperar a fin de mes, tu empresa está
+          funcionando a ciegas.
+        </p>
+        <p className="ft-1">
+          <span className="ft-2 font-bold">El mismo dato se captura dos, tres veces en formatos distintos</span><br/>
+          Primero en el formato físico o el chat de WhatsApp.<br/>
+          Luego en el Excel de operación.<br/>
+          Luego en el Excel de costos, nómina o facturación.<br/>
+          Cada traspaso es un punto de falla.<br/>
+          Cada persona que toca ese dato es una oportunidad de que el número cambie.<br/>
+          Y cuando los números no cuadran al final del mes, nadie sabe en qué paso se perdió la información.
+        </p>
+        <p className="ft-1">
+          <span
+            className="ft-2 font-bold">Llegaste a fin de mes (o de año) y encontraste dinero que nunca cobraste</span><br/>
+          Una factura olvidada.<br/>
+          Una orden que se entregó pero nunca se facturó.<br/>
+          Un cobro que "ya mero" se hacía pero quedó perdido en el ruido del día a día.<br/>
+          No es negligencia, es el resultado natural de operar con información dispersa en múltiples archivos que nadie
+          tiene tiempo de auditar.<br/>
+          El dinero estaba ahí.<br/>
+          Se fue por desorden, no por falta de clientes.
+        </p>
+        <p className="ft-1">
+          <span className="ft-2 font-bold">Ya intentaste resolverlo y te quedaron mal</span><br/>
+          Un ERP de seis cifras al año con módulos que tu empresa de 40 empleados nunca va a usar.<br/>
+          Un desarrollador que prometió tres meses, entregó el 85% y desapareció.<br/>
+          Un sistema genérico que no entiende cómo funciona tu industria.<br/>
+          No es que no hayas intentado.<br/>
+          Es que el mercado no tiene una opción diseñada para empresas de tu tamaño.<br/>
+          Hasta ahora.
         </p>
         <div className="flex flex-col justify-center items-center">
           <Link href="#contact">
@@ -88,6 +121,12 @@ export default function Home({_fbp, _fbc}) {
             >Contáctanos, da clic</a>
           </Link>
           <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
+        </div>
+      </section>
+
+      <section className="container py-40">
+        <div className="max-w-[100rem] mx-auto">
+          <p className="ft-6 font-bold text-center">El problema no eres tú.<br/> El problema es que los softwares del mercado fueron diseñados para empresas de 500 empleados y te los cobran como si tu empresa también lo fuera.</p>
         </div>
       </section>
 
@@ -159,37 +198,36 @@ export default function Home({_fbp, _fbc}) {
         </div>
       </section>
 
-      <Blockbuster
-        overhead="Beneficios"
-        title="Por qué deberías considerar un software de gestión en lugar de mil archivos de excel"
-        image={i01}
-      />
       <section className="reading-container my-16">
+        <h2 className="ft-6">Tu flujo de trabajo completo digitalizado: desde la operación del día a día hasta el cierre administrativo del mes, en un solo lugar</h2>
         <p className="ft-2">
           A ver, ya estamos de acuerdo en parar el uso excesivo de excel.
           <br/><br/>
-          Ahora, te voy a dar 3 razones de por qué un software a medida:
+          Ahora, te voy a dar unas razones de por qué un software a medida:
         </p>
         <h3 className="ft-2 font-bold text-brand-3">
-          La automatización
+          Un solo registro, cero doble captura
         </h3>
         <p className="ft-2">
-          Y es que no me vas a negar que estar encargando siempre las mismas tareas y no salgan como quieres, se vuelve
-          una friega diaria.
+          Cada dato se captura una vez y fluye automáticamente a donde necesita llegar — operación, costos, nómina o facturación. Sin traspasos manuales. Sin errores de transcripción.
         </p>
         <h3 className="ft-2 font-bold text-brand-3">
-          La integración y centralización de información
+          Visibilidad de tu operación en tiempo real
         </h3>
         <p className="ft-2">
-          Para que no tengas que depender de Lupita de contabilidad cuando se va a la playa y no estuvo conectada por
-          cualquier cosa.
+          Inventario, órdenes activas, costos reales vs. estimados, cuentas por cobrar pendientes. Todo disponible en el momento que lo necesitas, no al final del mes cuando ya no puedes corregir nada.
         </p>
         <h3 className="ft-2 font-bold text-brand-3">
-          Y por último: time is money
+          Cero cobros perdidos
         </h3>
         <p className="ft-2">
-          Tener un software a medida te va a ahorrar tiempo y mejorar tus procesos internos para
-          que no se tarden toda una semana generando un reporte que puede estar listo en 2 clics.
+          Cada entrega, cada orden, cada servicio: registrado, trazado y vinculado a su factura. Nunca más llegues a fin de año y encuentres dinero que debiste haber cobrado hace tres meses.
+        </p>
+        <h3 className="ft-2 font-bold text-brand-3">
+          Hecho para tu industria, no para todas a la vez
+        </h3>
+        <p className="ft-2">
+          No pagás por módulos de manufactura aeroespacial si eres una planta de inyección de plástico. No pagás por gestión de flotas globales si tienes 35 unidades en Jalisco. Solo lo que tu operación realmente necesita.
         </p>
         <div>
           <Link href="#contact">
@@ -202,12 +240,8 @@ export default function Home({_fbp, _fbc}) {
         </div>
       </section>
 
-      <Blockbuster
-        overhead="Por qué AS Sistemas"
-        title="Más que una agencia de software: somos especialistas en gestión de procesos empresariales"
-        image={i02}
-      />
       <section className="reading-container my-16">
+        <h2 className="ft-6">Más que una agencia de software: somos especialistas en gestión de procesos empresariales</h2>
         <p className="ft-2">
           Ahora sí, qué vamos a hacer por ti.
           <br/><br/>
@@ -243,47 +277,10 @@ export default function Home({_fbp, _fbc}) {
         </div>
       </section>
 
-      <Blockbuster
-        overhead="Nuestro Target"
-        title={`¿Ya estás buscando librarte de la excelitis?<br/> Entonces sí hacemos match`}
-        image={i03}
-      />
-      <section className="reading-container my-16">
-        <p className="ft-2">
-          Lo más seguro es que hayas llegado aquí porque estás buscando dar el siguiente paso en la operación de tu
-          empresa.
-          <br/><br/>
-          Y que ya no soportas que le enviaste un archivo a la de compras y lo editó,<br/><br/>
-          otra copia que le enviaste al de RH y la editó,<br/><br/>
-          otra que tenías como "Reporte_de_Cobranza-Final-Final-EL_BUENO-V2"
-          <br/><br/>
-          Ok tal vez estoy exagerando... ¿o no?
-          <br/><br/>
-          Desde ahorita es importante saber que esta es una inversión y
-          <b>un software</b> en AS Sistemas va <b>desde los $180,000 MXN</b>, según las
-          necesidades de tu empresa.
-          <br/><br/>
-          Además, quédate tranquilo de que no te
-          vamos a vender algo que no necesitas, ni te vamos a poner cargos
-          extras.
-        </p>
-        <div>
-          <Link href="#contact">
-            <a
-              onClick={() => setLastClick('target')}
-              className="button mb-4 mx-auto"
-            >Líbrate del excel. Da clic</a>
-          </Link>
-          <p className="-ft-2 !mt-2 text-center">Agenda una asesoría de software</p>
-        </div>
+      <section className="reading-container">
+        <h2 className="ft-6">Si tienes dudas, probablemente estén aquí</h2>
+        <Faqs/>
       </section>
-
-      <Blockbuster
-        overhead="Preguntas frecuentes"
-        title="Si tienes dudas, probablemente estén aquí"
-        image={i05}
-      />
-      <Faqs/>
 
       <section
         className="bg-brand-1 w-full"
@@ -293,30 +290,18 @@ export default function Home({_fbp, _fbc}) {
           <h2 className="text-white">
             Obtén una asesoría gratuita para diagnosticar tu proyecto de software
           </h2>
-          <p className="text-white">
-            Ya llegaste hasta acá, ya le dedicaste al menos 5 minutos de tu
-            valioso tiempo a leer esta historia.
+          <p className="ft-2 text-white">
+            Agenda una llamada de 45 minutos. Te hacemos un diagnóstico gratuito: revisamos cómo opera tu empresa hoy, identificamos dónde estás perdiendo tiempo y dinero, y te mostramos exactamente cómo se vería tu operación digitalizada.
           </p>
-          <p className="text-white">
-            Regálanos unos datos y agenda una cita para analizar tu proyecto.
+          <p className="ft-2 text-white">
+            Este diagnóstico es para empresas de 20 a 150 empleados en logística o manufactura que ya operan y quieren ordenar su operación.
           </p>
-          {/*<OptInForm*/}
-          {/*  lastClick={lastClick}*/}
-          {/*/>*/}
+          <OptInForm
+            lastClick={lastClick}
+          />
 
         </div>
       </section>
-      <div className="container">
-        <div
-          className="calendly-inline-widget w-full"
-          data-url={calendlyURL}
-          style={{minWidth: '320px', height: '720px'}}
-        />
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
-      </div>
     </>
   );
 }

@@ -47,7 +47,7 @@ export default function OptInForm({lastClick = ''}) {
       // Send FB Event
       .then(({id}) => {
         fbEvent(
-          'CompleteRegistration',
+          'Lead',
           {email: data.email, phone: data.phone, externalID: id},
         );
         setCookie('lead', {...data, id});
@@ -64,7 +64,14 @@ export default function OptInForm({lastClick = ''}) {
         }
       )
       // Redirect to Survey Page
-      .then((id) => router.push(`/survey?id=${id}`));
+      .then((id) => {
+        const forwardLink = document.createElement('a');
+        forwardLink.href = info.surveyRedirect + `?name=${data.fullName}&email=${data.email}&phone${data.phone}`;
+        forwardLink.target = '_blank';
+        forwardLink.click();
+
+        router.push(`/thankyou`);
+      });
   };
 
   return (
@@ -117,8 +124,72 @@ export default function OptInForm({lastClick = ''}) {
             'company',
             {required: true},
           )}
-          className={errors.fullName && '!bg-red-200'}
+          className={errors.company && '!bg-red-200'}
           placeholder="Tu empresa"/>
+
+        <Select
+          name="businessVertical"
+          inputOptions={{required: true}}
+          options={[
+            {value: 'logistica', name: 'Logística'},
+            {value: 'industrial', name: 'Industrial / Manufactura'},
+            {value: 'agricola', name: 'Agrícola'},
+            {value: 'education', name: 'Educación'},
+            {value: 'realEstate', name: 'Real Estate'},
+            {value: 'salud', name: 'Salud o Cuidado Personal'},
+            {value: 'security', name: 'Seguridad'},
+            {value: 'sales', name: 'Ventas/Retail'},
+            {value: 'other', name: 'Otro'},
+          ]}
+          placeholder="En qué industria encaja tu empresa?"
+          className={errors.businessVertical && '!bg-red-200'}
+        />
+
+        <textarea
+          {...register(
+            'notes',
+            {required: true},
+          )}
+          placeholder="Cuéntanos un poco más acerca de tu proyecto/idea?"
+          className={errors.notes && '!bg-red-200'}
+        />
+
+        <Select
+          name="urgency"
+          inputOptions={{required: true}}
+          options={[
+            {value: 'puntual', name: 'Tengo una necesidad puntual'},
+            {value: 'project', name: 'Tengo un proyecto en mente y necesito equipo'},
+            {value: 'idea', name: 'Solo tengo una idea para darle forma'},
+          ]}
+          placeholder="Cómo te identificas?"
+          className={errors.urgency && '!bg-red-200'}
+        />
+
+        <p className="text-neutral-300">Los proyectos de software pueden comenzar a partir de 7.000 USD a 20.000 USD en el mercado. ¿Su empresa cuenta con las posibilidad de invertir el total o cuotas por el mismo?</p>
+        <Select
+          name="commitment"
+          inputOptions={{required: true}}
+          options={[
+            {value: 'yes', name: 'Sí puedo invertir esos montos'},
+            {value: 'payments', name: 'Puedo abonar cuotas'},
+            {value: 'no', name: 'No estoy en condiciones'},
+          ]}
+          placeholder="Selecciona"
+          className={errors.commitment && '!bg-red-200'}
+        />
+
+        <Select
+          name="decission"
+          inputOptions={{required: true}}
+          options={[
+            {value: 'si', name: 'Sí, soy quien toma la decisión'},
+            {value: 'si', name: 'Participo en la decisión'},
+            {value: 'no', name: 'Solo estoy investigando opciones'},
+          ]}
+          placeholder="Tú tomas la decisión de esta implementación?"
+          className={errors.decission && '!bg-red-200'}
+        />
 
         <button
           disabled={sending}
