@@ -1,6 +1,10 @@
 import { info } from '../../info';
+import { getCookie } from 'cookies-next';
 
 export default function ThankYou() {
+  const leadCookie = getCookie('lead')
+  const lead = JSON.parse(leadCookie)
+
   return (
     <section className="relative flex flex-col flex-grow justify-center pt-20 px-0">
       <div className="container md:w-1/2 flex flex-col items-center gap-8">
@@ -17,7 +21,8 @@ export default function ThankYou() {
         <div className="flex flex-col items-center justify-center gap-10">
           <a
             className="button hover:scale-105 bg-brand-2 hover:bg-brand-3 ft-4 flex justify-center items-center "
-            href={info.surveyRedirect + `?name=${data.fullName}&email=${data.email}&phone${data.phone}`}
+            href={info.surveyRedirect}
+            href={info.surveyRedirect + `?name=${lead.fullName}&email=${lead.email}&phone${lead.phone}`}
             target="_blank"
           >
             <span className="material-icons">arrow_forward</span>Da click aquí
