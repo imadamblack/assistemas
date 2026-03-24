@@ -152,6 +152,7 @@ export default function OptInForm({lastClick = ''}) {
           )}
           placeholder="Cuéntanos un poco más acerca de tu proyecto/idea?"
           className={errors.notes && '!bg-red-200'}
+          rows={4}
         />
 
         <Select
@@ -165,21 +166,21 @@ export default function OptInForm({lastClick = ''}) {
           placeholder="Cómo te identificas?"
           className={errors.urgency && '!bg-red-200'}
         />
-        <span className="ft-0 text-neutral-300">Los proyectos de software pueden comenzar a partir de 7.000 USD a 20.000 USD en el mercado. ¿Su empresa cuenta con las posibilidad de invertir el total o cuotas por el mismo?</span>
+        <span className="ft-0 text-neutral-300 tracking-wider">Los proyectos de software pueden comenzar a partir de 7.000 USD a 20.000 USD en el mercado.<br/>¿Su empresa cuenta con las posibilidad de invertir el total o cuotas por el mismo?</span>
         <Select
-          name="commitment"
+          name="budget"
           inputOptions={{required: true}}
           options={[
-            {value: 'yes', name: 'Sí puedo invertir esos montos'},
-            {value: 'payments', name: 'Puedo abonar cuotas'},
-            {value: 'no', name: 'No estoy en condiciones'},
+            {value: '$7,000-$20,000', name: 'Sí puedo invertir esos montos'},
+            {value: 'cuotas', name: 'Puedo abonar cuotas'},
+            {value: '<$7,000', name: 'No estoy en condiciones'},
           ]}
           placeholder="Selecciona"
           className={errors.commitment && '!bg-red-200'}
         />
 
         <Select
-          name="decision"
+          name="commitment"
           inputOptions={{required: true}}
           options={[
             {value: 'decisionMaker', name: 'Sí, soy quien toma la decisión'},
