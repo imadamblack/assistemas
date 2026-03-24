@@ -305,7 +305,7 @@ input, select, textarea {
   @apply flex border border-gray-500 rounded-lg px-6 py-4 w-full;
 }
 input::placeholder, select::placeholder, textarea::placeholder {
-  @apply text-gray-500;
+  @apply text-gray-500 tracking-wider;
 }
 input::-ms-input-placeholder, select::-ms-input-placeholder, textarea::-ms-input-placeholder {
   @apply text-gray-500;
@@ -332,11 +332,15 @@ input[type=radio]:checked + label, input[type=checkbox]:checked + label {
 }
 
 select {
+  @apply tracking-wider;
   appearance: none;
   border-radius: 0;
 }
 select::-ms-expand {
   display: none;
+}
+select option {
+  @apply tracking-wider;
 }
 select option:disabled {
   @apply text-gray-500;

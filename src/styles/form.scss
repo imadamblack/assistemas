@@ -6,7 +6,7 @@ input, select, textarea {
   font-size: 1.6rem;
   @apply flex border border-gray-500 rounded-lg px-6 py-4 w-full;
   &::placeholder {
-    @apply text-gray-500;
+    @apply text-gray-500 tracking-wider;
   }
 
   &::-ms-input-placeholder {
@@ -36,11 +36,16 @@ input[type=radio]:checked + label, input[type=checkbox]:checked + label {
 }
 
 select {
+  @apply tracking-wider;
   appearance: none;
   border-radius: 0;
 
   &::-ms-expand {
     display: none;
+  }
+
+  & option {
+    @apply tracking-wider;
   }
 
   & option:disabled {

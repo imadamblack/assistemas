@@ -30,12 +30,12 @@ export default function OptInForm({lastClick = ''}) {
     const utm = JSON.parse(leadUtm);
     const payload = {...data,...utm, _fbc, _fbp};
 
-    const crmParams = {
-      obt_nombre: data.fullName,
-      obt_email: data.email,
-      obt_telefono: data.phone,
-      obt_empresa: data.company,
-    };
+    let crmParams = {};
+    Object.keys(data).map((key) => {
+      const k = `obt_${key}`;
+      crmParams[k] = data[key]
+    });
+
     // POST to Make.com Webhook
     fetch(info.optInWebhook, {
       method: 'POST',
@@ -165,8 +165,7 @@ export default function OptInForm({lastClick = ''}) {
           placeholder="Cómo te identificas?"
           className={errors.urgency && '!bg-red-200'}
         />
-
-        <p className="text-neutral-300">Los proyectos de software pueden comenzar a partir de 7.000 USD a 20.000 USD en el mercado. ¿Su empresa cuenta con las posibilidad de invertir el total o cuotas por el mismo?</p>
+        <span className="ft-0 text-neutral-300">Los proyectos de software pueden comenzar a partir de 7.000 USD a 20.000 USD en el mercado. ¿Su empresa cuenta con las posibilidad de invertir el total o cuotas por el mismo?</span>
         <Select
           name="commitment"
           inputOptions={{required: true}}
@@ -180,12 +179,12 @@ export default function OptInForm({lastClick = ''}) {
         />
 
         <Select
-          name="decission"
+          name="decision"
           inputOptions={{required: true}}
           options={[
-            {value: 'si', name: 'Sí, soy quien toma la decisión'},
-            {value: 'si', name: 'Participo en la decisión'},
-            {value: 'no', name: 'Solo estoy investigando opciones'},
+            {value: 'decisionMaker', name: 'Sí, soy quien toma la decisión'},
+            {value: 'participant', name: 'Participo en la decisión'},
+            {value: 'other', name: 'Solo estoy investigando opciones'},
           ]}
           placeholder="Tú tomas la decisión de esta implementación?"
           className={errors.decission && '!bg-red-200'}
