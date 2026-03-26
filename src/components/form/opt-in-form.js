@@ -36,6 +36,8 @@ export default function OptInForm({lastClick = ''}) {
       crmParams[k] = data[key]
     });
 
+    console.log(crmParams)
+
     // POST to Make.com Webhook
     fetch(info.optInWebhook, {
       method: 'POST',
@@ -134,12 +136,12 @@ export default function OptInForm({lastClick = ''}) {
             {value: 'logistica', name: 'Logística'},
             {value: 'industrial', name: 'Industrial / Manufactura'},
             {value: 'agricola', name: 'Agrícola'},
-            {value: 'education', name: 'Educación'},
+            {value: 'educacion', name: 'Educación'},
             {value: 'realEstate', name: 'Real Estate'},
             {value: 'salud', name: 'Salud o Cuidado Personal'},
-            {value: 'security', name: 'Seguridad'},
-            {value: 'sales', name: 'Ventas/Retail'},
-            {value: 'other', name: 'Otro'},
+            {value: 'securidad', name: 'Seguridad'},
+            {value: 'ventas-retail', name: 'Ventas/Retail'},
+            {value: 'otro', name: 'Otro'},
           ]}
           placeholder="En qué industria encaja tu empresa?"
           className={errors.businessVertical && '!bg-red-200'}
@@ -159,9 +161,9 @@ export default function OptInForm({lastClick = ''}) {
           name="urgency"
           inputOptions={{required: true}}
           options={[
-            {value: 'puntual', name: 'Tengo una necesidad puntual'},
-            {value: 'project', name: 'Tengo un proyecto en mente y necesito equipo'},
-            {value: 'idea', name: 'Solo tengo una idea para darle forma'},
+            {value: 'necesidad-puntual', name: 'Tengo una necesidad puntual'},
+            {value: 'proyecto-en-mente', name: 'Tengo un proyecto en mente y necesito equipo'},
+            {value: 'solo-idea', name: 'Solo tengo una idea para darle forma'},
           ]}
           placeholder="Cómo te identificas?"
           className={errors.urgency && '!bg-red-200'}
@@ -172,7 +174,7 @@ export default function OptInForm({lastClick = ''}) {
           inputOptions={{required: true}}
           options={[
             {value: '$7,000-$20,000', name: 'Sí puedo invertir esos montos'},
-            {value: 'cuotas', name: 'Puedo abonar cuotas'},
+            {value: '$7,000-$20,000-cuotas', name: 'Puedo abonar cuotas'},
             {value: '<$7,000', name: 'No estoy en condiciones'},
           ]}
           placeholder="Selecciona"
@@ -183,9 +185,9 @@ export default function OptInForm({lastClick = ''}) {
           name="commitment"
           inputOptions={{required: true}}
           options={[
-            {value: 'decisionMaker', name: 'Sí, soy quien toma la decisión'},
-            {value: 'participant', name: 'Participo en la decisión'},
-            {value: 'other', name: 'Solo estoy investigando opciones'},
+            {value: 'tomador-decision', name: 'Sí, soy quien toma la decisión'},
+            {value: 'participante', name: 'Participo en la decisión'},
+            {value: 'buscador-de-opciones', name: 'Soy quien busca opciones'},
           ]}
           placeholder="Tú tomas la decisión de esta implementación?"
           className={errors.decission && '!bg-red-200'}
