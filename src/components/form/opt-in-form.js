@@ -30,13 +30,20 @@ export default function OptInForm({lastClick = ''}) {
     const utm = JSON.parse(leadUtm);
     const payload = {...data,...utm, _fbc, _fbp};
 
-    let crmParams = {};
-    Object.keys(data).map((key) => {
-      const k = `obt_${key}`;
-      crmParams[k] = data[key]
-    });
-
-    console.log(crmParams)
+    let crmParams = {
+      obt_nombre: data.fullName,
+      obt_email: data.email,
+      obt_telefono: data.phone,
+      obt_empresa: data.company,
+      obt_tools: data.tools.join(', '),
+      obt_businessVertical: data.businessVertical,
+      obt_companySize: data.companySize,
+      obt_notes: data.notes,
+      obt_budget: data.budget,
+      obt_urgency: data.urgency,
+      obt_currentSales: data.curretnSales,
+      obt_commitment: data.commitment,
+    };
 
     // POST to Make.com Webhook
     fetch(info.optInWebhook, {
