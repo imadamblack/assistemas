@@ -16,7 +16,10 @@ export default function OptInForm({lastClick = ''}) {
     register,
     handleSubmit,
     formState: {errors},
+    watch
   } = methods;
+
+  console.log(watch());
 
   const onSubmit = (data) => {
     setSending(true);
@@ -35,15 +38,15 @@ export default function OptInForm({lastClick = ''}) {
       obt_email: data.email,
       obt_telefono: data.phone,
       obt_empresa: data.company,
-      obt_tools: data.tools.join(', '),
       obt_businessVertical: data.businessVertical,
       obt_companySize: data.companySize,
       obt_notes: data.notes,
       obt_budget: data.budget,
       obt_urgency: data.urgency,
-      obt_currentSales: data.curretnSales,
+      obt_currentSales: data.currentSales,
       obt_commitment: data.commitment,
     };
+
 
     // POST to Make.com Webhook
     fetch(info.optInWebhook, {
